@@ -1,18 +1,18 @@
 {
-    "name": "spatie/laravel-newsletter",
-    "description": "Manage newsletters in Laravel 5",
+    "name": "bonsi/laravel-newsletter-geresponse",
+    "description": "Manage GetResponse newsletters in Laravel 5",
     "keywords": [
         "laravel",
         "newsletter",
-        "mailchimp"
+        "getrespones"
     ],
-    "homepage": "https://github.com/spatie/laravel-newsletter",
+    "homepage": "https://github.com/bonsi/laravel-newsletter-getresponse",
     "license": "MIT",
     "authors": [
         {
-            "name": "Freek Van der Herten",
-            "email": "freek@spatie.be",
-            "homepage": "https://murze.be",
+            "name": "Bonsi",
+            "email": "telluur@gmail.com",
+            "homepage": "https://github.com/bonsi/",
             "role": "Developer"
         }
     ],
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Newsletter\\": "src"
+            "Bonsi\\Newsletter\\GetResponse": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Newsletter\\Test\\": "tests"
+            "Bonsi\\Newsletter\\GetResponse\\Test\\": "tests"
         }
     }
 }
