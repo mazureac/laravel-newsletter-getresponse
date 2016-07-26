@@ -1,12 +1,10 @@
-# Manage newsletters in Laravel 5
-[![Latest Version](https://img.shields.io/github/release/spatie/laravel-newsletter.svg?style=flat-square)](https://github.com/spatie/laravel-newsletter/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie/laravel-newsletter/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-newsletter)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/10993a65-449a-488a-886c-f810b9950070.svg?style=flat-square)](https://insight.sensiolabs.com/projects/10993a65-449a-488a-886c-f810b9950070)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-newsletter.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-newsletter)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-newsletter)
+# Manage GetResponse newsletters in Laravel 5
 
-This package provides an easy way to integrate MailChimp with Laravel 5. Behind the scenes v3 for the MailChimp API is used. Here are some examples of what you can do with the package:
+Fork of the awesome [![spatie/laravel-newsletter](https://github.com/spatie/laravel-newsletter)]
+"Beter goed gejat dan slecht verzonnen" :) 
+
+
+This package provides an easy way to integrate GetResponse with Laravel 5. Behind the scenes [??v3] for the GetResponse API is used. Here are some examples of what you can do with the package:
 
 ```php
 Newsletter::subscribe('rincewind@discworld.com');
@@ -29,7 +27,6 @@ Newsletter::hasMember('greebo@discworld.com');
 Newsletter::getApi();
 ```
 
-Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Installation
 
@@ -201,7 +198,7 @@ Newsletter::lastActionSucceeded();
 
 ### Need something else?
 
-If you need more functionality you get an instance of the underlying [MailChimp Api](https://github.com/drewm/mailchimp-api) with:
+If you need more functionality you get an instance of the underlying [GetResponse Api](https://github.com/GetResponse/getresponse-api-php) with:
 
 ```php
 $api = Newsletter::getApi();
@@ -214,21 +211,11 @@ Run the tests with:
 vendor/bin/phpunit
 ```
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security
-
-If you discover any security related issues, please email [freek@spatie.be](mailto:freek@spatie.be) instead of using the issue tracker.
-
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
-
-## About Spatie
-Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
+- [Bonsi](https://github.com/bonsi)
 
 ## License
 
