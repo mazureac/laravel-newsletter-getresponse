@@ -4,7 +4,7 @@
     "keywords": [
         "laravel",
         "newsletter",
-        "getrespones"
+        "getresponse"
     ],
     "homepage": "https://github.com/bonsi/laravel-newsletter-getresponse",
     "license": "MIT",
@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Bonsi\\GetResponse\\Newsletter": "src"
+            "Bonsi\\GetResponse\\Newsletter\\": "src"
         }
     },
     "autoload-dev": {
