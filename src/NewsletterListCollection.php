@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace Bonsi\GetResponse\Newsletter;
 
 use Illuminate\Support\Collection;
-use Spatie\Newsletter\Exceptions\InvalidNewsletterList;
+use Bonsi\GetResponse\Newsletter\Exceptions\InvalidNewsletterList;
 
 class NewsletterListCollection extends Collection
 {

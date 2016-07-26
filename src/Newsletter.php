@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace Bonsi\GetResponse\Newsletter;
 
-use DrewM\MailChimp\MailChimp;
+//use DrewM\MailChimp\MailChimp;
 
 class Newsletter
 {

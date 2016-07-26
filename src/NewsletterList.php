@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace Bonsi\GetResponse\Newsletter;
 
 class NewsletterList
 {

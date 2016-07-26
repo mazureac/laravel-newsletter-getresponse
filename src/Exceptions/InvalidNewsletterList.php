@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Newsletter\Exceptions;
+namespace Bonsi\GetResponse\Newsletter\Exceptions;
 
 use Exception;
 

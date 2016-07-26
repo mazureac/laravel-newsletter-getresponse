@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Bonsi\\Newsletter\\GetResponse": "src"
+            "Bonsi\\GetResponse\\Newsletter": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Bonsi\\Newsletter\\GetResponse\\Test\\": "tests"
+            "Bonsi\\GetResponse\\Newsletter\\Test\\": "tests"
         }
     }
 }

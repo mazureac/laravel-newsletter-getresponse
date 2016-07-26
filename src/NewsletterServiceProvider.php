@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace Bonsi\GetResponse\Newsletter;
 
 use DrewM\MailChimp\MailChimp;
 use Illuminate\Support\ServiceProvider;
@@ -11,10 +11,10 @@ class NewsletterServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-newsletter.php', 'laravel-newsletter');
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-newsletter-getresponse.php', 'laravel-newsletter-getresponse');
 
         $this->publishes([
-            __DIR__.'/../config/laravel-newsletter.php' => config_path('laravel-newsletter.php'),
+            __DIR__ . '/../config/laravel-newsletter-getresponse.php' => config_path('laravel-newsletter-getresponse.php'),
         ]);
     }
 
@@ -22,13 +22,13 @@ class NewsletterServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Newsletter::class, function () {
 
-            $mailChimp = new Mailchimp(config('laravel-newsletter.apiKey'));
+            $mailChimp = new Mailchimp(config('laravel-newsletter-getresponse.apiKey'));
 
-            $configuredLists = NewsletterListCollection::createFromConfig(config('laravel-newsletter'));
+            $configuredLists = NewsletterListCollection::createFromConfig(config('laravel-newsletter-getresponse'));
 
             return new Newsletter($mailChimp, $configuredLists);
         });
 
-        $this->app->alias(Newsletter::class, 'laravel-newsletter');
+        $this->app->alias(Newsletter::class, 'laravel-newsletter-getresponse');
     }
 }

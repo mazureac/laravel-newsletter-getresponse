@@ -1,10 +1,12 @@
 # Manage GetResponse newsletters in Laravel 5
 
+### Note: work in progress!
+
 Fork of the awesome [![spatie/laravel-newsletter](https://github.com/spatie/laravel-newsletter)]
 "Beter goed gejat dan slecht verzonnen" :) 
 
 
-This package provides an easy way to integrate GetResponse with Laravel 5. Behind the scenes [??v3] for the GetResponse API is used. Here are some examples of what you can do with the package:
+This package provides an easy way to integrate GetResponse with Laravel 5. Behind the scenes v3 for the GetResponse API is used. Here are some examples of what you can do with the package:
 
 ```php
 Newsletter::subscribe('rincewind@discworld.com');
@@ -33,7 +35,7 @@ Newsletter::getApi();
 You can install this package via Composer using:
 
 ```bash
-composer require spatie/laravel-newsletter
+composer require bonsi/laravel-newsletter-getresponse
 ```
 
 You must also install this service provider.
@@ -42,7 +44,7 @@ You must also install this service provider.
 // config/app.php
 'providers' => [
     ...
-    Spatie\Newsletter\NewsletterServiceProvider::class,
+    Bonsi\GetResponse\Newsletter\NewsletterServiceProvider::class,
     ...
 ];
 ```
@@ -53,25 +55,25 @@ If you want to make use of the facade you must install it as well.
 // config/app.php
 'aliases' => [
     ..
-    'Newsletter' => Spatie\Newsletter\NewsletterFacade::class,
+    'Newsletter' => Bonsi\GetResponse\Newsletter\NewsletterFacade::class,
 ];
 ```
 
-To publish the config file to `app/config/laravel-newsletter.php` run:
+To publish the config file to `app/config/laravel-newsletter-getresponse.php` run:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\Newsletter\NewsletterServiceProvider"
+php artisan vendor:publish --provider="Bonsi\GetResponse\Newsletter\NewsletterServiceProvider"
 ```
 
-This wil publish a file `laravel-newsletter.php` in your config directory with the following contents: 
+This wil publish a file `laravel-newsletter-getresponse.php` in your config directory with the following contents: 
 ```php
 return [
 
         /*
-         * The api key of a MailChimp account. You can find yours here:
+         * The api key of a GetResponse account. You can find yours here:
          * https://us10.admin.mailchimp.com/account/api-key-popup/
          */
-        'apiKey' => env('MAILCHIMP_APIKEY'),
+        'apiKey' => env('GETRESPONSE_APIKEY'),
 
         /*
          * When not specifying a listname in the various methods,
@@ -95,11 +97,11 @@ return [
             'subscribers' => [
 
                 /*
-                 * A mail chimp list id. Check the mailchimp docs if you don't know
+                 * A getresponse campaign id. Check the mailchimp docs if you don't know
                  * how to get this value:
                  * http://kb.mailchimp.com/lists/managing-subscribers/find-your-list-id
                  */
-                 'id' => env('MAILCHIMP_LIST_ID'),
+                 'id' => env('GETRESPONSE_DEFAULT_LIST_ID'),
             ],
         ],
 ];
@@ -177,7 +179,7 @@ This is how you create a campaign:
  *
  * @return array|bool
  *
- * @throws \Spatie\Newsletter\Exceptions\InvalidNewsletterList
+ * @throws \Bonsi\GetResponse\Newsletter\Exceptions\InvalidNewsletterList
  */
 public function createCampaign($fromName, $replyTo, $subject, $html = '', $listName = '', $options = [], $contentOptions = [])
 ```
