@@ -3,10 +3,10 @@
 return [
 
         /*
-         * The api key of a MailChimp account. You can find yours here:
-         * https://us10.admin.mailchimp.com/account/api-key-popup/
+         * The api key of a GetResponse account. You can find yours here:
+         * https://app.getresponse.com/manage_api.html
          */
-        'apiKey' => env('MAILCHIMP_APIKEY'),
+        'apiKey' => env('GETRESPONSE_APIKEY'),
 
         /*
          * When not specifying a listname in the various methods, use the list with this name
@@ -29,11 +29,10 @@ return [
             'subscribers' => [
 
                 /*
-                 * A mail chimp list id. Check the mailchimp docs if you don't know
-                 * how to get this value:
-                 * http://kb.mailchimp.com/lists/managing-subscribers/find-your-list-id
+                 * A GetResponse campaign token.
+                 * https://app.getresponse.com/campaign_list.html#campaignsList
                  */
-                'id' => env('MAILCHIMP_LIST_ID'),
+                'id' => env('GETRESPONSE_CAMPAIGN_TOKEN'),
             ],
         ],
 ];

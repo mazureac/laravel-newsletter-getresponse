@@ -2,7 +2,6 @@
 
 namespace Bonsi\GetResponse\Newsletter;
 
-use DrewM\MailChimp\MailChimp;
 use Illuminate\Support\ServiceProvider;
 
 class NewsletterServiceProvider extends ServiceProvider
@@ -22,11 +21,11 @@ class NewsletterServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Newsletter::class, function () {
 
-            $mailChimp = new Mailchimp(config('laravel-newsletter-getresponse.apiKey'));
+            $getResponse = new \GetResponse(config('laravel-newsletter-getresponse.apiKey'));
 
             $configuredLists = NewsletterListCollection::createFromConfig(config('laravel-newsletter-getresponse'));
 
-            return new Newsletter($mailChimp, $configuredLists);
+            return new Newsletter($getResponse, $configuredLists);
         });
 
         $this->app->alias(Newsletter::class, 'laravel-newsletter-getresponse');

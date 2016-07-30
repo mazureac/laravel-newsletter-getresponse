@@ -13,6 +13,6 @@ class NewsletterFacade extends Facade
      */
     public static function getFacadeAccessor()
     {
-        return 'laravel-newsletter';
+        return 'laravel-newsletter-getresponse';
     }
 }

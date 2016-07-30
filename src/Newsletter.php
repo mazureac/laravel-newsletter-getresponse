@@ -2,23 +2,24 @@
 
 namespace Bonsi\GetResponse\Newsletter;
 
+//use GetResponse\GetResponse;
 //use DrewM\MailChimp\MailChimp;
 
 class Newsletter
 {
-    /** @var \DrewM\MailChimp\MailChimp */
-    protected $mailChimp;
+    /** @var GetResponse */
+    protected $getResponse;
 
-    /** * @var \Spatie\Newsletter\NewsletterListCollection */
+    /** * @var \Bonsi\GetResponse\Newsletter\NewsletterListCollection */
     protected $lists;
 
     /**
-     * @param \DrewM\MailChimp\MailChimp                  $mailChimp
-     * @param \Spatie\Newsletter\NewsletterListCollection $lists
+     * @param \GetResponse                 $getResponse
+     * @param \Bonsi\GetResponse\Newsletter\NewsletterListCollection $lists
      */
-    public function __construct(MailChimp $mailChimp, NewsletterListCollection $lists)
+    public function __construct(\GetResponse $getResponse, NewsletterListCollection $lists)
     {
-        $this->mailChimp = $mailChimp;
+        $this->getResponse = $getResponse;
 
         $this->lists = $lists;
     }
@@ -31,31 +32,34 @@ class Newsletter
      *
      * @return array|bool
      *
-     * @throws \Spatie\Newsletter\Exceptions\InvalidNewsletterList
+     * @throws \Bonsi\GetResponse\Newsletter\Exceptions\InvalidNewsletterList
      */
     public function subscribe($email, $mergeFields = [], $listName = '', $options = [])
     {
         $list = $this->lists->findByName($listName);
 
         $defaultOptions = [
-            'email_address' => $email,
-            'status' => 'subscribed',
-            'email_type' => 'html',
+            'email' => $email,
+            'campaign' => ['campaignId' => $list->getId()]
         ];
 
-        if (count($mergeFields)) {
-            $defaultOptions['merge_fields'] = $mergeFields;
-        }
+        $allOptions = array_merge($defaultOptions, $mergeFields);
+//dd($allOptions);
+        $curlResponse = $this->getResponse->addContact($allOptions);
 
-        $options = array_merge($defaultOptions, $options);
+        $httpStatus = $this->getResponse->http_status;
 
-        $response = $this->mailChimp->post("lists/{$list->getId()}/members", $options);
+//        if( 202 != $httpStatus )
+//        {
+//            $this->lastError = $curlResponse;
+//            throw new \Exception("GetResponseAPI3 returned code {$httpStatus}, error: ".print_r($curlResponse,true));
+//        }
 
-        if (!$this->lastActionSucceeded()) {
-            return false;
-        }
+// dd(['$httpStatus' => $httpStatus]);
+        // empty stdClass is OK
+        return $curlResponse;
+//        return true;
 
-        return $response;
     }
 
     /**
@@ -64,17 +68,27 @@ class Newsletter
      *
      * @return array|bool
      *
-     * @throws \Spatie\Newsletter\Exceptions\InvalidNewsletterList
+     * @throws \Bonsi\GetResponse\Newsletter\Exceptions\InvalidNewsletterList
      */
     public function getMember($email, $listName = '')
     {
         $list = $this->lists->findByName($listName);
 
-        if (!$this->lastActionSucceeded()) {
-            return false;
-        }
+//        if (!$this->lastActionSucceeded()) {
+//            return false;
+//        }
+        $options = [
+            'query' => [
+                'email' => $email,
+                'campaign' => ['campaignId' => $list->getId()]
+            ],
+            'fields' => 'name',
+        ];
+        dd([
+            'response' => $this->getResponse->searchContacts($options)
+            ]);
 
-        return $this->mailChimp->get("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
+//        return $this->getResponse->get("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
     }
 
     /**
@@ -104,13 +118,13 @@ class Newsletter
      *
      * @return array|false
      *
-     * @throws \Spatie\Newsletter\Exceptions\InvalidNewsletterList
+     * @throws \Bonsi\GetResponse\Newsletter\Exceptions\InvalidNewsletterList
      */
     public function unsubscribe($email, $listName = '')
     {
         $list = $this->lists->findByName($listName);
 
-        $response = $this->mailChimp->delete("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
+        $response = $this->getResponse->delete("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
 
         return $response;
     }
@@ -126,7 +140,7 @@ class Newsletter
      *
      * @return array|bool
      *
-     * @throws \Spatie\Newsletter\Exceptions\InvalidNewsletterList
+     * @throws \Bonsi\GetResponse\Newsletter\Exceptions\InvalidNewsletterList
      */
     public function createCampaign($fromName, $replyTo, $subject, $html = '', $listName = '', $options = [], $contentOptions = [])
     {
@@ -146,7 +160,7 @@ class Newsletter
 
         $options = array_merge($defaultOptions, $options);
 
-        $response = $this->mailChimp->post('campaigns', $options);
+        $response = $this->getResponse->post('campaigns', $options);
 
         if (!$this->lastActionSucceeded()) {
             return false;
@@ -169,7 +183,7 @@ class Newsletter
 
         $options = array_merge($defaultOptions, $options);
 
-        $response = $this->mailChimp->put("campaigns/{$campaignId}/content", $options);
+        $response = $this->getResponse->put("campaigns/{$campaignId}/content", $options);
 
         if (!$this->lastActionSucceeded()) {
             return false;
@@ -179,11 +193,11 @@ class Newsletter
     }
 
     /**
-     * @return \DrewM\MailChimp\MailChimp
+     * @return \GetResponse
      */
     public function getApi()
     {
-        return $this->mailChimp;
+        return $this->getResponse;
     }
 
     /**
@@ -191,7 +205,7 @@ class Newsletter
      */
     public function getLastError()
     {
-        return $this->mailChimp->getLastError();
+        return $this->getResponse->getLastError();
     }
 
     /**
@@ -199,7 +213,7 @@ class Newsletter
      */
     public function lastActionSucceeded()
     {
-        return !$this->mailChimp->getLastError();
+        return !$this->getResponse->getLastError();
     }
 
     /**
@@ -209,6 +223,6 @@ class Newsletter
      */
     protected function getSubscriberHash($email)
     {
-        return $this->mailChimp->subscriberHash($email);
+        return $this->getResponse->subscriberHash($email);
     }
 }
